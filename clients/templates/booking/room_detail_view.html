@@ -1,0 +1,108 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Detail</title>
+    <script src="https://kit.fontawesome.com/692189991f.js" crossorigin="anonymous"></script>
+
+    <!-- Main StyleSheet -->
+    <link rel="stylesheet" href="{% static 'css/room_detail_view.css' %}">
+
+</head>
+
+<body>
+
+   
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Room Image -->
+        <div class="image">
+            {% if room_category == "BLUE" %}
+                <img src= "{% static "blue.png" %}" style = "width:500px; height:500px;">
+                {% elif room_category == "GREEN" %}
+                <img src= "{% static "green.png" %}" style = "width:500px; height:500px;">
+                {% elif room_category == "YELLOW" %}
+                <img src= "{% static "yellow.png" %}" style = "width:500px; height:500px;">
+                {% elif room_category == "RED" %}
+                <img src= "{% static "red.png" %}" style = "width:500px; height:500px;">
+                {% elif room_category == "SILVER" %}
+                <img src= "{% static "silver.png" %}" style = "width:500px; height:500px;">
+                {% endif %}
+        </div>
+
+        <!-- Room Details -->
+        <div class="room">
+
+            <!-- Div 1: Back to Home -->
+            
+            <div class="bhome">
+                <a href="{% url 'RoomListView' %}"><i class="fas fa-arrow-alt-circle-left">Room List</i></a>
+            </div>
+
+            <!-- Div 2: Room Information -->
+            <div class="room-info">
+                <h1>{{room_category}}</h1>
+                <p> ola </p>
+            </div>
+            <form id="booking-form" action="" method="POST">
+
+                {% csrf_token %}
+                <div class = "input-div">
+                    <label> Choose a client: </label>
+                    <select name = "nome_cliente"> 
+                    
+                        {% for c in clients %}
+                        <option value= "{{c.name}}" > {{ c.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-div">
+                    <label for="id_check_in">Check In : </label>
+                    <input type="datetime-local" id="id_check_in" name="check_in">
+                </div>
+
+                
+                <div class="input-div">
+                    <label for="id_check_out">Check Out : </label>
+                    <input type="datetime-local" id="id_check_out" name="check_out">
+                </div>                          
+
+                <div class = "input-div">
+                    <label> Epoca: </label>
+                    <select name = "epoca"> 
+                    
+                        {% for e in epocaViews %}
+                        <option value= "{{e.epoca}}" > {{ e.epoca }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                </div>
+
+                <div class = "input-div">
+                    <label for= "preco_premium_publico"> Preços: </label>
+                    <input type="checkbox" name="premium" value="True" id="preco_premium_publico">
+                    
+                </div>
+
+                <div class="input-div">
+                    <button type="submit">Book the Room</button>
+                </div>
+
+
+            </form>
+
+
+        </div> 
+    
+    </div> 
+
+</body>
+
+</html>

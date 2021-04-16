@@ -1,0 +1,46 @@
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Wakevilla LDA </title>
+    <!-- Main StyleSheet -->
+    <link rel="stylesheet" href="{% static 'css/room_list_view.css' %}">
+</head>
+
+
+<body>
+    <!-- Main Content -->
+    <div class="container">
+        {% for room_category, room_url in room_list %}
+        <div class="room">
+            <a href="{{room_url}}">
+                {% if room_category == "BLUE" %}
+                <img src= "{% static "blue.png" %}">
+
+                {% elif room_category == "GREEN" %}
+                <img src= "{% static "green.png" %}">
+                {% elif room_category == "YELLOW" %}
+                <img src= "{% static "yellow.png" %}">
+                {% elif room_category == "RED" %}
+                <img src= "{% static "red.png" %}">
+                {% elif room_category == "SILVER" %}
+                <img src= "{% static "silver.png" %}">
+                {% endif %}
+                <h2>{{room_category}}</h2>
+                <button>BOOK NOW</button>
+                
+            </a>
+        </div>
+        {% endfor %}
+    
+    </div>
+
+</body>
+
+</html>

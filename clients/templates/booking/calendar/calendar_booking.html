@@ -1,0 +1,12 @@
+{% extends 'booking/calendar/calendar_booking_base.html' %}
+
+{% block content %}
+
+<div class="clearfix">
+    <a class="btn btn-info left" href="{% url 'CalendarBooking' %}?{{ prev_month }}"> Previous Month </a>
+    <a class="btn btn-info right" href="{% url 'CalendarBooking' %}?{{ next_month }}"> Next Month </a>
+    <a class="btn btn-info right" href="{% url 'RoomListView' %}"> New Booking </a>
+</div>
+
+{{ calendar }}
+{% endblock %}

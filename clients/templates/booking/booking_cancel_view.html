@@ -1,0 +1,75 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Detail</title>
+    <script src="https://kit.fontawesome.com/692189991f.js" crossorigin="anonymous"></script>
+
+    <!-- Main StyleSheet -->
+    <link rel="stylesheet" href="{% static 'css/room_cancel_view.css' %}">
+
+</head>
+
+<body>
+
+   
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Room Image -->
+        <div class="image">
+            {% if booking.room.get_room_category == "BLUE" %}
+                <img src= "{% static "blue.png" %}" style = "width:500px; height:500px;">
+                {% elif booking.room.get_room_category == "GREEN" %}
+                <img src= "{% static "green.png" %}" style = "width:500px; height:500px;">
+                {% elif booking.room.get_room_category == "YELLOW" %}
+                <img src= "{% static "yellow.png" %}" style = "width:500px; height:500px;">
+                {% elif booking.room.get_room_category == "RED" %}
+                <img src= "{% static "red.png" %}" style = "width:500px; height:500px;">
+                {% elif booking.room.get_room_category == "SILVER" %}
+                <img src= "{% static "silver.png" %}" style = "width:500px; height:500px;">
+                {% endif %}
+        </div>
+
+        <!-- Room Details -->
+        <div class="room">
+
+            <!-- Div 1: Back to Home -->
+            
+            <div class="bhome">
+                <a href="{% url 'CalendarBooking' %}"><i class="fas fa-arrow-alt-circle-left" > Calendar</i></a>
+            </div>
+
+            
+        
+            <form id="booking-form" action="" method="POST">
+
+                {% csrf_token %}
+                <h2>Are you sure you want to cancel this booking? </h2>
+                
+                <p> Client : {{booking.client.name}}</p>
+                <p> Room : {{booking.room.get_room_category}}</p>
+                <p> From : {{booking.check_in | date:"d / M / Y  G:i"}}</p>
+                <p> To : {{booking.check_out | date:"d / M / Y  G:i"}}</p>
+                <p> Total Price : {{booking.preco_total}} €</p>
+                
+                <div class="input-div">
+                    <button type="submit">Cancel the Booking</button>
+                </div>
+
+            </form>
+
+
+        </div> 
+    
+    </div> 
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+# This is a basic workflow to help you get started with Actions
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master, docker-compose ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # Runs a set of commands using the runners shell
+    - name: Cleans git files
+      run: |
+        rm -rf .git .gitignore .github
+
+    - uses: webfactory/ssh-agent@v0.3.0
+      with:
+        ssh-private-key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+    - name: Loads remote fingerprint
+      run:  ssh-keyscan "${{ secrets.DEPLOY_HOST }}" > ~/.ssh/known_hosts
+    - name: Copy repo into deploy directory
+      run: scp -r . ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_DIR }}/tootsie
+    - name: Run deploy command
+      run: ssh  ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} sudo ${{ secrets.DEPLOY_DIR }}/tootsie.sh
+
